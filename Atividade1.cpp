@@ -3,10 +3,10 @@
 #include <iostream>
 #include "mpi.h"
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
     
     // Declaracao de variaveis
-    int size, rank, input;
+    int size, rank, input, output;
     double start, end;
 
     MPI_Init(&argc, &argv);
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[]) {
             if(rank == j + i) {
                 MPI_Recv(&output, 1, MPI_INT, j, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 input = output;
-                std::cout << "Process n" << j + i << " received " << outuput << " from n" << j << std::endl;
+                std::cout << "Process n" << j + i << " received " << output << " from n" << j << std::endl;
             } else if(rank == j) {
                 MPI_Send(&input, 1, MPI_INT, j + i, 0, MPI_COMM_WORLD);
                 std::cout << "Process n" << j << " sent " << input << "to n" << j + i << " at " << i << std::endl;
